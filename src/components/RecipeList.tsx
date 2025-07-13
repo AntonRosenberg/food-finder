@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchRecipes } from '../api/recipes';
 import { Recipe } from '../types/recipe';
+import ExpandableSection from './ExpandableSection';
 
 // TheMealDB API provides up to 20 ingredients per meal.
 const MAX_INGREDIENTS = 20;
@@ -68,18 +69,19 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
         <div>
             <h2>Recipe List</h2>
             <ul>
-                {recipes.map(recipe => (
-                    <li key={recipe.id}>
-                        <h3>{recipe.title}</h3>
-                        <ul>
-                            {recipe.ingredients.map((ing, idx) => (
-                                <li key={idx}>
-                                    {ing.name} {ing.measure && `- ${ing.measure}`}
-                                </li>
-                            ))}
-                        </ul>
-                        <p>Instructions: {recipe.instructions}</p>
-                    </li>
+            {recipes.map((recipe) => (
+                <li key={recipe.id}>
+                    <ExpandableSection title={recipe.title}>
+                    <ul>
+                        {recipe.ingredients.map((ing, idx) => (
+                        <li key={idx}>
+                            {ing.name} {ing.measure && `- ${ing.measure}`}
+                        </li>
+                        ))}
+                    </ul>
+                    <p><strong>Instructions:</strong> {recipe.instructions}</p>
+                    </ExpandableSection>
+                </li>
                 ))}
             </ul>
         </div>
