@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
+import DownloadRecipeButton from '../DownloadRecepieButton';
+
+type Ingredient = {
+  name: string;
+  measure?: string;
+};
+
+type Recipe = {
+  title: string;
+  ingredients: Ingredient[];
+  instructions: string;
+};
 
 type ExpandableSectionProps = {
   title: string;
   children: React.ReactNode;
   defaultExpanded?: boolean;
+  recipe?: Recipe; // ✅ Optional prop for recipe download
 };
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({
   title,
   children,
   defaultExpanded = false,
+  recipe,
 }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
 
@@ -30,7 +44,16 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({
         {expanded ? '▼' : '►'} {title}
       </button>
 
-      {expanded && <div style={{ marginTop: '0.5rem' }}>{children}</div>}
+      {expanded && (
+        <div style={{ marginTop: '0.5rem' }}>
+          {children}
+          {recipe && (
+            <div style={{ marginTop: '1rem' }}>
+              <DownloadRecipeButton recipe={recipe} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
