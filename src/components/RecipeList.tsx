@@ -2,16 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { fetchRecipes } from '../api/recipes';
 import { Recipe } from '../types/recipe';
 
+// TheMealDB API provides up to 20 ingredients per meal.
+const MAX_INGREDIENTS = 20;
+
 const RecipeList: React.FC = () => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+
+    const processReceipes = (data: any): Recipe[] => {
+        return data.meals.map((item: any) => {
+            const ingredients: { name: string; measure: string }[] = [];
+            for (let i = 1; i <= MAX_INGREDIENTS; i++) {
+                const name = item[`strIngredient${i}`];
+                let measure = item[`strMeasure${i}`];
+
+                if (measure && measure.toLowerCase().includes('tin')) {
+                    measure = measure.replace(/tin/gi, 'package');
+                }
+
+                if (name && name.trim() !== '') {
+                    ingredients.push({ name, measure: measure || '' });
+                }
+            }
+            return {
+                id: Number(item.idMeal),
+                title: item.strMeal,
+                ingredients,
+                instructions: item.strInstructions || '',
+            };
+        });
+    };
+
     useEffect(() => {
         const getRecipes = async () => {
             try {
-                const data = await fetchRecipes();
-                setRecipes(data);
+                const data = await fetchRecipes('search.php?s=Arrabiata');
+                const processedData = await processReceipes(data);
+                setRecipes(processedData);
             } catch (err) {
                 setError('Failed to fetch recipes');
             } finally {
@@ -37,7 +66,13 @@ const RecipeList: React.FC = () => {
                 {recipes.map(recipe => (
                     <li key={recipe.id}>
                         <h3>{recipe.title}</h3>
-                        <p>Ingredients: {recipe.ingredients.join(', ')}</p>
+                        <ul>
+                            {recipe.ingredients.map((ing, idx) => (
+                                <li key={idx}>
+                                    {ing.name} {ing.measure && `- ${ing.measure}`}
+                                </li>
+                            ))}
+                        </ul>
                         <p>Instructions: {recipe.instructions}</p>
                     </li>
                 ))}
