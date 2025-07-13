@@ -45,6 +45,7 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
                 const data = await fetchRecipes(searchQuery);
                 const processedData = await processReceipes(data);
                 setRecipes(processedData);
+                setError(null);
             } catch (err) {
                 setError('Failed to fetch recipes');
             } finally {
