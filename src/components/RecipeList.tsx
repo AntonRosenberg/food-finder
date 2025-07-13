@@ -5,7 +5,11 @@ import { Recipe } from '../types/recipe';
 // TheMealDB API provides up to 20 ingredients per meal.
 const MAX_INGREDIENTS = 20;
 
-const RecipeList: React.FC = () => {
+type RecipeListProps = {
+  searchQuery: string;
+};
+
+const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -38,7 +42,7 @@ const RecipeList: React.FC = () => {
     useEffect(() => {
         const getRecipes = async () => {
             try {
-                const data = await fetchRecipes('search.php?s=Arrabiata');
+                const data = await fetchRecipes(searchQuery);
                 const processedData = await processReceipes(data);
                 setRecipes(processedData);
             } catch (err) {
@@ -49,7 +53,7 @@ const RecipeList: React.FC = () => {
         };
 
         getRecipes();
-    }, []);
+    }, [searchQuery]);
 
     if (loading) {
         return <div>Loading...</div>;

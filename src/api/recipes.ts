@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { Recipe } from '../types/recipe';
 
-const API_URL = 'https://www.themealdb.com/api/json/v1/1/'; // Replace with the actual API URL
+const API_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s='; // Replace with the actual API URL
 
 export const fetchRecipes = async (search: string): Promise<Recipe[]> => {
     try {
