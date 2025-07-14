@@ -17,7 +17,7 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
     const [error, setError] = useState<string | null>(null);
 
 
-    const processReceipes = (data: any): Recipe[] => {
+    const processRecipes = (data: any): Recipe[] => {
         return data.meals.map((item: any) => {
             const ingredients: { name: string; measure: string }[] = [];
             for (let i = 1; i <= MAX_INGREDIENTS; i++) {
@@ -45,7 +45,7 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
         const getRecipes = async () => {
             try {
                 const data = await fetchRecipes(searchQuery);
-                const processedData = await processReceipes(data);
+                const processedData = await processRecipes(data);
                 setRecipes(processedData);
                 setError(null);
             } catch (err) {
