@@ -79,6 +79,7 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
                 <div key={recipe.id} style={{ marginBottom: '1rem' }}>
                     <ExpandableSection title={recipe.title} recipe={recipe}>
                         <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
+                            <strong>Ingredients:</strong>
                             {recipe.ingredients.map((ing, idx) => (
                                 <li key={idx}>
                                     {ing.name} {ing.measure && `- ${ing.measure}`}
