@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RecipeList from './components/RecipeList';
+import RecipeList from './components/RecipieList';
 import SearchBar from './components/SearchFunction/SearchBar';
 import './App.css';
 

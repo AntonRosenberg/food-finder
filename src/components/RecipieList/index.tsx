@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { fetchRecipes } from '../api/recipes';
-import { Recipe } from '../types/recipe';
-import ExpandableSection from './ExpandableSection';
-import DownloadRecipeButton from './DownloadRecepieButton';
+import { fetchRecipes } from '../../api/recipes';
+import { Recipe } from '../../types/recipe';
+import ExpandableSection from '../ExpandableSection';
+import './styles.css';
 
 // TheMealDB API provides up to 20 ingredients per meal.
 const MAX_INGREDIENTS = 20;
@@ -62,29 +62,34 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
         return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>{error}</div>;
+    if (error || recipes.length === 0) {
+        return (
+            <div className="warning-box">
+                <span className="warning-icon">⚠️</span>
+                Could not find any recipes
+            </div>
+        );
     }
 
     return (
         <div>
             <h2>Recipe List</h2>
-            <ul>
+            <div>
             {recipes.map((recipe) => (
-  <li key={recipe.id}>
-    <ExpandableSection title={recipe.title} recipe={recipe}>
-      <ul>
-        {recipe.ingredients.map((ing, idx) => (
-          <li key={idx}>
-            {ing.name} {ing.measure && `- ${ing.measure}`}
-          </li>
-        ))}
-      </ul>
-      <p><strong>Instructions:</strong> {recipe.instructions}</p>
-    </ExpandableSection>
-  </li>
-))}
-            </ul>
+                <div key={recipe.id} style={{ marginBottom: '1rem' }}>
+                    <ExpandableSection title={recipe.title} recipe={recipe}>
+                        <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
+                            {recipe.ingredients.map((ing, idx) => (
+                                <li key={idx}>
+                                    {ing.name} {ing.measure && `- ${ing.measure}`}
+                                </li>
+                            ))}
+                        </ul>
+                        <p><strong>Instructions:</strong> {recipe.instructions}</p>
+                    </ExpandableSection>
+                </div>
+            ))}
+            </div>
         </div>
     );
 };
