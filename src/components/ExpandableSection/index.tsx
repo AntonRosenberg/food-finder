@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DownloadRecipeButton from '../DownloadRecepieButton';
 
 type Ingredient = {
@@ -16,7 +21,7 @@ type ExpandableSectionProps = {
   title: string;
   children: React.ReactNode;
   defaultExpanded?: boolean;
-  recipe?: Recipe; // ✅ Optional prop for recipe download
+  recipe?: Recipe;
 };
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({
@@ -25,36 +30,24 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({
   defaultExpanded = false,
   recipe,
 }) => {
-  const [expanded, setExpanded] = useState(defaultExpanded);
-
   return (
-    <div style={{ border: '1px solid #ccc', borderRadius: '8px', margin: '1rem 0', padding: '0.5rem' }}>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: '#007bff',
-          cursor: 'pointer',
-          fontWeight: 'bold',
-          fontSize: '1rem',
-          padding: 0,
-        }}
+    <Accordion defaultExpanded={defaultExpanded} sx={{ mb: 2, borderRadius: 2, boxShadow: 2 }}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls={`${title}-content`}
+        id={`${title}-header`}
       >
-        {expanded ? '▼' : '►'} {title}
-      </button>
-
-      {expanded && (
-        <div style={{ marginTop: '0.5rem' }}>
-          {children}
-          {recipe && (
-            <div style={{ marginTop: '1rem' }}>
-              <DownloadRecipeButton recipe={recipe} />
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+        <Typography variant="subtitle1" fontWeight={600}>{title}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        {children}
+        {recipe && (
+          <div style={{ marginTop: '1rem' }}>
+            <DownloadRecipeButton recipe={recipe} />
+          </div>
+        )}
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
