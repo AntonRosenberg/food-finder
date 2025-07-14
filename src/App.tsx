@@ -8,11 +8,11 @@ const App: React.FC = () => {
     const [searchClicked, setSearchClicked] = useState<boolean>(false);
 
     return (
-        <div>
+        <div className="app-container">
             <h1 className="title">Food Finder</h1>
             <SearchBar onSearch={(query) => {
                 setSearchQuery(query);
-                setSearchClicked(true);         
+                setSearchClicked(true);
             }} />
             { searchClicked &&
                 <RecipeList searchQuery={searchQuery} />

@@ -35,7 +35,21 @@ ${recipe.instructions}
   };
 
   return (
-    <button onClick={handleDownload}>
+    <button
+      onClick={handleDownload}
+      style={{
+        padding: '0.6rem 1.2rem',
+        borderRadius: '8px',
+        border: 'none',
+        background: 'linear-gradient(90deg,#38c6fa,#4f8cff)',
+        color: '#fff',
+        fontWeight: 600,
+        fontSize: '1rem',
+        cursor: 'pointer',
+        marginTop: '0.5rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+      }}
+    >
       Download Recipe
     </button>
   );
