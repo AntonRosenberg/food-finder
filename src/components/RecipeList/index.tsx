@@ -86,26 +86,26 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery, country}) => {
                 <div key={recipe.id} style={{ marginBottom: '1rem' }}>
                     <ExpandableSection title={recipe.title} recipe={recipe}>
                         <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
-                            <strong>Ingredients:</strong>
-                            {recipe.ingredients.map((ing, idx) => (
-                                <li key={idx}>
-                                    {ing.name} {ing.measure && `- ${ing.measure}`}
-                                </li>
-                            ))}
-                        </ul>
-                        <div>
-                            <strong>Instructions:</strong>
-                            {recipe.instructions
-                                .split('\n')
-                                .map(step => step.replace(/^(\s*(Step\s*\d+:?|\d+\.)\s*)/i, '').trim())
-                                .filter(cleanedStep => cleanedStep) // Remove empty steps
-                                .map((cleanedStep, idx) => (
-                                    <p key={idx} style={{ marginBottom: '1em' }}>
-                                        <strong>Step {idx + 1}:</strong> {cleanedStep}
-                                    </p>
-                                ))
-                            }
-                        </div>
+    <strong style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5em' }}>Ingredients:</strong>
+    {recipe.ingredients.map((ing, idx) => (
+        <li key={idx}>
+            {ing.name} {ing.measure && `- ${ing.measure}`}
+        </li>
+    ))}
+</ul>
+<div>
+    <strong style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5em' }}>Instructions:</strong>
+    {recipe.instructions
+        .split('\n')
+        .map(step => step.replace(/^(\s*(Step\s*\d+:?|\d+\.)\s*)/i, '').trim())
+        .filter(cleanedStep => cleanedStep)
+        .map((cleanedStep, idx, arr) => (
+            <p key={idx} style={{ marginBottom: '1em' }}>
+                <strong>Step {idx + 1}:</strong> {cleanedStep}
+            </p>
+        ))
+    }
+</div>
                     </ExpandableSection>
                 </div>
             ))}
