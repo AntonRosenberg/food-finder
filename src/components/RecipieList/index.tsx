@@ -9,9 +9,10 @@ const MAX_INGREDIENTS = 20;
 
 type RecipeListProps = {
   searchQuery: string;
+  country?: string;
 };
 
-const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
+const RecipeList: React.FC<RecipeListProps> = ({searchQuery, country}) => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -37,6 +38,7 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
                 title: item.strMeal,
                 ingredients,
                 instructions: item.strInstructions || '',
+                country: item.strArea || '',
             };
         });
     };
@@ -58,11 +60,16 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
         getRecipes();
     }, [searchQuery]);
 
+    // Filter recipes by country after fetching
+    const filteredRecipes = country
+        ? recipes.filter(recipe => recipe.country === country)
+        : recipes;
+
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    if (error || recipes.length === 0) {
+    if (error || filteredRecipes.length === 0) {
         return (
             <div className="warning-box">
                 <span className="warning-icon">⚠️</span>
@@ -75,7 +82,7 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery}) => {
         <div>
             <h2>Recipe List</h2>
             <div>
-            {recipes.map((recipe) => (
+            {filteredRecipes.map((recipe) => (
                 <div key={recipe.id} style={{ marginBottom: '1rem' }}>
                     <ExpandableSection title={recipe.title} recipe={recipe}>
                         <ul style={{ paddingLeft: 0, listStyle: 'none' }}>

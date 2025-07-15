@@ -2,15 +2,24 @@
 import axios from 'axios';
 import { Recipe } from '../types/recipe';
 
-const API_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s='; // Replace with the actual API URL
+const API_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const AREA_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const FILTER_BY_AREA_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
-export const fetchRecipes = async (search: string): Promise<Recipe[]> => {
+export const fetchRecipes = async (search: string, area?: string): Promise<any> => {
     try {
-        const response = await axios.get(API_URL+`${search}`);
-        console.log('Fetched recipes:', response.data);
+        let url = API_URL + encodeURIComponent(search);
+        if (area && area !== '') {
+            url = FILTER_BY_AREA_URL + encodeURIComponent(area);
+        }
+        const response = await axios.get(url);
         return response.data;
     } catch (error) {
-        console.error('Error fetching recipes:', error);
         throw error;
     }
+};
+
+export const fetchCountries = async (): Promise<string[]> => {
+    const response = await axios.get(AREA_URL);
+    return response.data.meals.map((item: any) => item.strArea);
 };

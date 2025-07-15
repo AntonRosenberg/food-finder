@@ -13,7 +13,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+        <form
+            onSubmit={handleSubmit}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+                gap: '0.5rem'
+            }}
+        >
             <input
                 type="text"
                 value={query}
