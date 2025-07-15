@@ -42,7 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             <button
                 type="submit"
                 style={{
-                    padding: '0 1.5rem', // Only horizontal padding
+                    padding: '0 1.5rem',
                     borderRadius: '8px',
                     border: 'none',
                     background: 'linear-gradient(90deg,#4f8cff,#38c6fa)',
