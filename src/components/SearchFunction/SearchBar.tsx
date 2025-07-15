@@ -42,18 +42,23 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             <button
                 type="submit"
                 style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5em',
                     padding: '0 1.5rem',
-                    borderRadius: '8px',
+                    borderRadius: '999px',
                     border: 'none',
-                    background: 'linear-gradient(90deg,#4f8cff,#38c6fa)',
-                    color: '#fff',
+                    background: 'linear-gradient(90deg, #e0e0e0 0%, #b0b0b0 50%, #888 100%)',
+                    color: '#333',
                     fontWeight: 600,
                     fontSize: '1rem',
                     cursor: 'pointer',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                    height: CONTROL_HEIGHT
+                    height: CONTROL_HEIGHT,
+                    transition: 'box-shadow 0.2s',
                 }}
             >
+                <span className="material-icons" style={{ fontSize: '1.2em' }}>search</span>
                 Search
             </button>
         </form>

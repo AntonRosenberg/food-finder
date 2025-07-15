@@ -38,18 +38,23 @@ ${recipe.instructions}
     <button
       onClick={handleDownload}
       style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5em',
         padding: '0.6rem 1.2rem',
-        borderRadius: '8px',
+        borderRadius: '999px',
         border: 'none',
-        background: 'linear-gradient(90deg,#38c6fa,#4f8cff)',
-        color: '#fff',
+        background: 'linear-gradient(90deg, #e0e0e0 0%, #b0b0b0 50%, #888 100%)',
+        color: '#333',
         fontWeight: 600,
         fontSize: '1rem',
         cursor: 'pointer',
         marginTop: '0.5rem',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        transition: 'box-shadow 0.2s',
       }}
     >
+      <span className="material-icons" style={{ fontSize: '1.2em' }}>download</span>
       Download Recipe
     </button>
   );
