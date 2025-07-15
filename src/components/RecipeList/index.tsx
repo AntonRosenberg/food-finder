@@ -98,11 +98,15 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery, country}) => {
                             {recipe.instructions
                                 .split('\n')
                                 .filter(step => step.trim() !== '')
-                                .map((step, idx) => (
-                                    <p key={idx} style={{ marginBottom: '1em' }}>
-                                        <strong>Step {idx + 1}:</strong> {step}
-                                    </p>
-                                ))
+                                .map((step, idx) => {
+                                    // Remove leading "Step n:", "n.", or "Step n." from each step
+                                    const cleanedStep = step.replace(/^(\s*(Step\s*\d+:?|\d+\.)\s*)/i, '');
+                                    return (
+                                        <p key={idx} style={{ marginBottom: '1em' }}>
+                                            <strong>Step {idx + 1}:</strong> {cleanedStep}
+                                        </p>
+                                    );
+                                })
                             }
                         </div>
                     </ExpandableSection>

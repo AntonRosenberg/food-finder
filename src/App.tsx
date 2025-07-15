@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
     return (
         <div className="app-container">
-            <h1 className="title">Food Finder</h1>
+            <h1 className="title">Yui Food Finder</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
                 <CountrySelector
                     countries={countries}
