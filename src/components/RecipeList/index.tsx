@@ -93,7 +93,18 @@ const RecipeList: React.FC<RecipeListProps> = ({searchQuery, country}) => {
                                 </li>
                             ))}
                         </ul>
-                        <p><strong>Instructions:</strong> {recipe.instructions}</p>
+                        <div>
+                            <strong>Instructions:</strong>
+                            {recipe.instructions
+                                .split('\n')
+                                .filter(step => step.trim() !== '')
+                                .map((step, idx) => (
+                                    <p key={idx} style={{ marginBottom: '1em' }}>
+                                        <strong>Step {idx + 1}:</strong> {step}
+                                    </p>
+                                ))
+                            }
+                        </div>
                     </ExpandableSection>
                 </div>
             ))}
