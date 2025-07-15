@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CONTROL_HEIGHT } from '../../constants/ui';
 
 interface SearchBarProps {
     onSearch: (query: string) => void;
@@ -28,20 +29,20 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                 onChange={e => setQuery(e.target.value)}
                 placeholder="Search for recipes..."
                 style={{
-                    padding: '0.75rem 1rem',
-                    width: '60%',
-                    maxWidth: '350px',
+                    padding: '0 1rem',
+                    width: '80%',
+                    maxWidth: '65%',
                     borderRadius: '8px',
                     border: '1px solid #d1d5db',
                     fontSize: '1rem',
-                    marginRight: '0.5rem',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                    height: CONTROL_HEIGHT
                 }}
             />
             <button
                 type="submit"
                 style={{
-                    padding: '0.75rem 1.5rem',
+                    padding: '0 1.5rem', // Only horizontal padding
                     borderRadius: '8px',
                     border: 'none',
                     background: 'linear-gradient(90deg,#4f8cff,#38c6fa)',
@@ -49,7 +50,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                     fontWeight: 600,
                     fontSize: '1rem',
                     cursor: 'pointer',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    height: CONTROL_HEIGHT
                 }}
             >
                 Search

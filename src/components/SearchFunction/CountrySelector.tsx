@@ -1,4 +1,5 @@
 import React from 'react';
+import { CONTROL_HEIGHT } from '../../constants/ui';
 
 type CountrySelectorProps = {
   countries: string[];
@@ -15,8 +16,7 @@ const CountrySelector: React.FC<CountrySelectorProps> = ({ countries, selectedCo
       borderRadius: '8px',
       border: '1px solid #d1d5db',
       fontSize: '1rem',
-      marginRight: '1rem',
-      height: '48px', // Match SearchBar height
+      height: CONTROL_HEIGHT,
       background: '#fff',
       cursor: 'pointer'
     }}

@@ -1,0 +1,1 @@
+export const CONTROL_HEIGHT = '2.5em';
